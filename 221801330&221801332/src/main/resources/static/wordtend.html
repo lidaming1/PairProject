@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>热度走势对比</title>
+
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+
+  <body style="height: 100%; margin: 0">
+    <div class="dropdown">
+      <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">热词走势对比
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="paperlist.html">首页</a>
+        </li>
+
+        <li role="presentation" class="divider"></li>
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="topten.html">Top10 热门领域排行榜</a>
+        </li>
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="wordtend.html">热词走势对比</a>
+        </li>
+      </ul>
+    </div>
+
+    <div id="container" style="height: 90%;width: 90%;margin-top: 15px;"></div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script type="text/javascript">
+      var dom = document.getElementById("container");
+      var myChart = echarts.init(dom);
+      
+      var app = {};
+
+      var option;
+      option = {
+          tooltip: {
+              trigger: 'axis'
+          },
+          legend: {
+              data: ['Cameras','Training','Computer vision','Feature extraction','Shape','Image segmentation','Robustness','Visualization','Three-dimensional displays','Image reconstruction']
+          },
+          grid: {
+              left: '3%',
+              right: '4%',
+              bottom: '3%',
+              containLabel: true
+          },
+          toolbox: {
+              feature: {
+                  saveAsImage: {}
+              }
+          },
+          xAxis: {
+              type: 'category',
+              boundaryGap: false,
+              data: ['2014年', '2015年', '2016年', '2017年', '2018年', '2019年', '2020年']
+          },
+          yAxis: {
+              type: 'value'
+          },
+          series: [
+              {
+                  name: 'Cameras',
+                  type: 'line',
+                  stack: '热词1',
+                  data: ['94','176','94','202','108','112','88']
+              },
+              {
+                  name: 'Training',
+                  type: 'line',
+                  stack: '热词2',
+                  data: ['125','232','140','362','197','321','225']
+              },
+              {
+                  name: 'Computer vision',
+                  type: 'line',
+                  stack: '热词3',
+                  data: ['41','83','74','162','65','123','58']
+              },
+              {
+                  name: 'Feature extraction',
+                  type: 'line',
+                  stack: '热词4',
+                  data: ['69','184','141','246','126','265','111']
+              },
+              {
+                  name: 'Shape',
+                  type: 'line',
+                  stack: '热词5',
+                  data: ['48','104','54','100','65','77','85']
+              },
+              {
+                  name: 'Image segmentation',
+                  type: 'line',
+                  stack: '热词6',
+                  data: ['41','85','63','104','73','131','32']
+              },
+              {
+                  name: 'Robustness',
+                  type: 'line',
+                  stack: '热词7',
+                  data: ['40','90','58','99','4','64','61']
+              },
+              {
+                  name: 'Visualization',
+                  type: 'line',
+                  stack: '热词8',
+                  data: ['76','155','76','185','65','123','46']
+              },
+              {
+                  name: 'Three-dimensional displays',
+                  type: 'line',
+                  stack: '热词9',
+                  data: ['85','153','76','207','88','150','125']
+              },
+              {
+                  name: 'Image reconstruction',
+                  type: 'line',
+                  stack: '热词10',
+                  data: ['31','85','30','76','45','68','81']
+              },
+          ]
+      };
+
+      if (option && typeof option === 'object') {
+          myChart.setOption(option);
+      }
+      myChart.setOption({
+        title: {text: '热词走势'},
+        tooltip: {},
+        legend: {data:['Image reconstruction']},
+        xAxis: {data:[]},
+        yAxis: {},
+        series: [{name: 'Image reconstruction',type: 'bar',data: []}]
+      });
+
+      $.ajax({
+        url: "/wordData",
+        async:false,
+        cache:false,
+        success:function (data) {
+          myChart.setOptions({
+            xAxis: {data: data.categories},
+            series: [{name: 'Image reconstruction',data: data.data}]
+          })
+        },
+        error:function (error) {
+          console.log(error);
+        }
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
