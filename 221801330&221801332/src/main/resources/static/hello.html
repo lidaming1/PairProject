@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Top10热门领域排行榜</title>
+
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="dropdown">
+    <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">Top10 热门领域排行榜
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="paperlist.html">首页</a>
+        </li>
+
+        <li role="presentation" class="divider"></li>
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="topten.html">Top10 热门领域排行榜</a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="wordtend.html">热词走势对比</a>
+        </li>
+    </ul>
+</div>
+
+<div class="col-md-8">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <table class="table">
+                <caption>Top10 热门领域排行榜</caption>
+                <thead>
+                <tr>
+                    <th>排名</th>
+                    <th>关键词</th>
+                    <th>搜索热度</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr onClick="window.location.href='paperlist.html?tj_type=Cameras'">
+                    <th scope="row">1</th>
+                    <td id="keyword1">Cameras</td>
+                    <td id="search_heat1">2162</td>
+                </tr>
+
+                <tr onClick="window.location.href='paperlist.html?tj_type=Training'">
+                    <th scope="row">2</th>
+                    <td id="keyword2">Training</td>
+                    <td id="search_heat2">2023</td>
+                </tr>
+
+                <tr onClick="window.location.href='paperlist.html?tj_type=Computer vision'">
+                    <th scope="row">3</th>
+                    <td id="keyword3">Computer vision</td>
+                    <td id="search_heat3">1764</td>
+                </tr>
+
+                <tr onClick="window.location.href='paperlist.html?tj_type=Feature extraction'">
+                    <th scope="row">4</th>
+                    <td id="keyword4">Feature extraction</td>
+                    <td id="search_heat4">1682</td>
+                </tr>
+
+                <tr onClick="window.location.href='paperlist.html?tj_type=Shape'">
+                    <th scope="row">5</th>
+                    <td id="keyword5">Shape</td>
+                    <td id="search_heat5">1416</td>
+                </tr>
+
+                <tr onClick="window.location.href='paperlist.html?tj_type=Image segmentation'">
+                    <th scope="row">6</th>
+                    <td id="keyword6">Image segmentation</td>
+                    <td id="search_heat6">1290</td>
+                </tr>
+
+                <tr onClick="window.location.href='paperlist.html?tj_type=Robustness'">
+                    <th scope="row">7</th>
+                    <td id="keyword7">Robustness</td>
+                    <td id="search_heat7">1266</td>
+                </tr>
+
+                <tr onClick="window.location.href='paperlist.html?tj_type=Visualization'">
+                    <th scope="row">8</th>
+                    <td id="keyword8">Visualization</td>
+                    <td id="search_heat8">1108</td>
+                </tr>
+
+                <tr onClick="window.location.href='paperlist.html?tj_type=Three-dimensional displays'">
+                    <th scope="row">9</th>
+                    <td id="keyword9">Three-dimensional displays</td>
+                    <td id="search_heat9">1056</td>
+                </tr>
+
+                <tr onClick="window.location.href='paperlist.html?tj_type=Image reconstruction'">
+                    <th scope="row">10</th>
+                    <td id="keyword10">Image reconstruction</td>
+                    <td id="search_heat10">955</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    function doLink()
+    {
+        window.location = 'paperlist.html';
+    }
+</script>
+</body>
+</html>
