@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daming.bootstring.mapper.PapersMapper">
+<resultMap id="Papers" type="com.daming.bootstring.model.Paper">
+    <id column="id" property="id"></id>
+    <result column="keywords" property="keyWords"></result>
+    <result column="abstract" property="paperAbstract"></result>
+    <result column="title" property="title"></result>
+    <result column="meeting" property="meeting"></result>
+    <result column="year" property="year"></result>
+    <result column="url" property="url"></result>
+
+</resultMap>
+    <insert id="insertMessage" keyProperty="id" useGeneratedKeys="true" parameterType="com.daming.bootstring.model.Paper">
+        insert into papers(keywords,abstract,title,meeting,year,url)
+        values (#{keyWords},#{paperAbstract},#{title},#{meeting},#{year},#{url})
+    </insert>
+    <select id="getKwd" resultMap="Papers">
+        select * from papers
+    </select>
+
+    <select id="getYearByKwd" resultMap="Papers" parameterType="java.lang.String">
+        select * from papers where keywords like CONCAT('%', #{keyWords}, '%')
+
+    </select>
+
+
+</mapper>
