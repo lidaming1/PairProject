@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>首页</title>
+    <script src="js/select.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/option.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bootstrap-table/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="css/table.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.15.4/bootstrap-table.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.15.4/locale/bootstrap-table-zh-CN.min.js"></script>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dropdown">
+        <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">首页
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="paperlist.html">首页</a>
+          </li>
+  
+          <li role="presentation" class="divider"></li>
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="topten.html">Top10 热门领域排行榜</a>
+          </li>
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="wordtend.html">热词走势对比</a>
+          </li>
+        </ul>
+    </div>
+
+    <button id="remove" onclick="deleteSelects()" style="margin-top: 40px;">删除</button>
+    <table id="myTable" class="table table-hover"></table>
+    <script>
+        $('#myTable').bootstrapTable({
+            method: 'get',
+            url: "getTable", // 请求路径
+            striped: true, // 是否显示行间隔色
+            pageNumber: 1, // 初始化加载第一页
+            pagination: true, // 是否分页
+            sidePagination: 'client', // server:服务器端分页|client：前端分页
+            sortable: true,
+            sortName:'论文名称',
+            sortOrder: 'desc',
+            pageSize: 10, // 单页记录数
+            pageList: [5, 20, 30],
+            search: true,
+            paginationLoop: true,
+            paginationHAlign: 'left',
+            paginationDetailHAlign: 'right',
+            paginationPreText: '上一页',
+            paginationNextText: '下一页',
+            // showRefresh : true,// 刷新按钮
+            queryParams: function(params) { // 上传服务器的参数
+                var temp = {
+                    name: 1
+                };
+                return temp;
+            },
+            columns: [{
+                checkbox: true
+            }, {
+                title: '论文名称',
+                field: 'title',
+                sort: true,
+                searchable:true,
+                formatter:paramsMatter,
+            }, {
+                title: '原文链接',
+                field: 'url',
+                searchable:false,
+                formatter:paramsMatter,
+            }, {
+                title: '会议',
+                field: 'meeting',
+                searchable:true,
+            },{
+                title: '年份',
+                field: 'year',
+                searchable:true,
+            }, {
+                title: '摘要',
+                field: 'paperAbstract',
+                searchable:false,
+                formatter:paramsMatter,
+            }, {
+                title: '关键词',
+                field: 'keyWords',
+                searchable:true,
+                formatter:paramsMatter,
+            }
+            ]
+        })
+
+        //删除选中
+        function deleteSelects() {
+            var obj=$('#myTable');
+            var ids = $.map(obj.bootstrapTable('getSelections'), function (row) {
+                return row.url
+            });
+            obj.bootstrapTable('remove', {field: 'url',values: ids });
+        }
+
+        //设置默认搜索
+        function selectByKeyword(search) {
+            $("#myTable").bootstrapTable('resetSearch', search);
+        }
+
+        //表格超出宽度鼠标悬停显示td内容
+        function paramsMatter(value, row, index) {
+            var span = document.createElement("span");
+            span.setAttribute("title", value);
+            span.innerHTML = value;
+            return span.outerHTML;
+        }
+
+        //td宽度以及内容超过宽度隐藏
+        function formatTableUnit(value, row, index) {
+            return {
+                css: {
+                    "white-space": "nowrap",
+                    "text-overflow": "ellipsis",
+                    "overflow": "hidden",
+                    "max-width": "60px"
+                }
+            }
+        }
+    </script>
+
+    <script type="text/html" id="usernameTpl">
+        <a href="/?table-demo-id={{d.id}}" class="layui-table-link" target="_blank">{{ d.原文链接 }}</a>
+    </script>
+
+    <script>
+        var tj_type = getParams("tj_type");
+        console.log(tj_type);
+        selectByKeyword(tj_type);
+        //获取传过来的值
+        function getParams(key) {
+            var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        };
+    </script>
+</body>
+
+</html>
